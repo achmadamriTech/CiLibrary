@@ -35,8 +35,10 @@
             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item" href="<?=site_url('buku/view/'.$data->id);?>">Detail</a>
-                    <a class="dropdown-item" href="<?=site_url('buku/edit/'.$data->id);?>">Edit</a>
-                    <a class="dropdown-item" href="<?=site_url('buku/delete/'.$data->id);?>">Delete</a>
+                    <?php if ($this->session->userdata('role')=='Write' || $this->session->userdata('role')=='Admin' ) :?>
+                        <a class="dropdown-item" href="<?=site_url('buku/edit/'.$data->id);?>">Edit</a>
+                        <a class="dropdown-item" href="<?=site_url('buku/delete/'.$data->id);?>">Delete</a>
+                    <?php endif;?>
               </div>
            </div>
         </div>

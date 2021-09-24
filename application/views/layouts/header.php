@@ -53,7 +53,8 @@
         <li class="nav-item">
           <a class="<?php if($this->uri->segment(1)=="sewa"){echo "active";}?> nav-link" href="<?=site_url();?>sewa">Sewa</a>
         </li>
-        <li class="nav-item dropdown">
+        <?php if ($this->session->userdata('role')=='Write' || $this->session->userdata('role')=='Admin' ) :?>
+          <li class="nav-item dropdown">
           <a class="<?php if($this->uri->segment(1)=="users"){echo "active";}?> nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
           <div class="dropdown-menu">
           <a class="dropdown-item" href="<?=site_url();?>users">Users</a>
@@ -61,6 +62,7 @@
             <a class="dropdown-item" href="<?=site_url();?>userRole">User Role</a>
           </div>
         </li>
+        <?php endif;?>
         <?php endif ?>
       </ul>
       <div class="d-flex align-items-center">

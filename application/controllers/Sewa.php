@@ -41,6 +41,13 @@ class Sewa extends CI_Controller {
 
 	public function delete($sewaId)
 	{
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('sewa/index');
+		}
+
 		$data['sewa'] = $this->sewa_model->getById($sewaId);
 		$result = $this->sewa_model->hapusSewa($sewaId);
 
@@ -54,7 +61,14 @@ class Sewa extends CI_Controller {
 	}
 
 	public function create()
-	{        
+	{    
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('sewa/index');
+		}
+
 		//Load Library untuk Form Validation
 		$this->load->library('form_validation');
         
@@ -90,6 +104,14 @@ class Sewa extends CI_Controller {
 	}
 
 	public function edit($sewaId) {
+
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('sewa/index');
+		}
+
         $data['sewa'] = $this->sewa_model->getById($sewaId);
         
 		//Load Library untuk Form Validation

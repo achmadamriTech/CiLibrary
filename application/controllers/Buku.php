@@ -78,6 +78,14 @@ class Buku extends CI_Controller {
 	}
 
 	public function edit($bukuId) {
+
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('buku/index');
+		}
+
         $data['buku'] = $this->buku_model->getById($bukuId);
         
 		//Load Library untuk Form Validation
@@ -113,7 +121,14 @@ class Buku extends CI_Controller {
     }
 
 	public function delete($bukuId)
-	{
+	{	
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('buku/index');
+		}
+		
 		$data['buku'] = $this->buku_model->getById($bukuId);
 		$result = $this->buku_model->hapusBuku($bukuId);
 

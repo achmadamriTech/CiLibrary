@@ -37,7 +37,14 @@ class Pelanggan extends CI_Controller {
 	}
 
 	public function delete($pelangganId)
-	{
+	{	
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('pelanggan/index');
+		}
+
 		$data['pelanggan'] = $this->pelanggan_model->getById($pelangganId);
 		
 		$result = $this->pelanggan_model->hapusPelanggan($pelangganId);
@@ -88,6 +95,14 @@ class Pelanggan extends CI_Controller {
 	}
 
 	public function edit($pelangganId) {
+
+		if (strtolower($this->session->userdata('role')) != 'write'
+		    && strtolower($this->session->userdata('role')) != 'admin') {
+			
+				$this->session->set_flashdata('error', 'Anda Tidak Memiliki Akses!');
+				redirect('pelanggan/index');
+		}
+
         $data['pelanggan'] = $this->pelanggan_model->getById($pelangganId);
         
 		//Load Library untuk Form Validation
