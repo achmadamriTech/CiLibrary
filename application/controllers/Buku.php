@@ -17,6 +17,10 @@ class Buku extends CI_Controller {
 
 	public function index()
 	{   
+		if(!$this->session->userdata('username')){
+			$this->session->set_flashdata('error',"Please Login");
+			redirect('login','refresh');
+		}
 
 		$this->load->model('buku_model');
 
